@@ -58,6 +58,15 @@ public static class HelperExtensions
         return Regex.Match($"{value}", @"[^A-Za-z0-9\.]").Success;
     }
 
+    public static bool Between(this int value, int minValue, int maxValue)
+    {
+        return (value >= minValue && value <= maxValue);
+    }
+
+    public static bool Between(this long value, long minValue, long maxValue)
+    {
+        return (value >= minValue && value <= maxValue);
+    }
 }
 
 public static class Helpers

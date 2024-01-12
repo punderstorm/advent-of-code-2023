@@ -41,18 +41,20 @@ public static class day2
         };
 
         // final solution
-        Console.WriteLine(allCubeGameData
-            .Where(g => g.CubeData.Where(c => c.CubeAmount <= cubeComparison[c.CubeColor]).Count() == 3)
-            .Sum(g => g.GameID)
-        );
+        Console.WriteLine(@$"Part 1: {
+            allCubeGameData
+                .Where(g => g.CubeData.Where(c => c.CubeAmount <= cubeComparison[c.CubeColor]).Count() == 3)
+                .Sum(g => g.GameID)
+        }");
     }
 
     private static void Part2(List<GameData> allCubeGameData)
     {
         // final solution
-        Console.WriteLine(allCubeGameData
-            .Sum(g => g.CubeData.Select(c => c.CubeAmount).Aggregate((agg, next) => agg * next))
-        );
+        Console.WriteLine(@$"Part 2: {
+            allCubeGameData
+                .Sum(g => g.CubeData.Select(c => c.CubeAmount).Aggregate((agg, next) => agg * next))
+        }");
     }
 
     private class CubeData

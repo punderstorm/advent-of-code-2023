@@ -73,19 +73,21 @@ public static class day3
     private static void Part1(List<PartNumber> schematicPartNumbers)
     {
         // final solution
-        Console.WriteLine(schematicPartNumbers
-            .Where(p => p.HasSymbolNeighbor)
-            .Sum(p => int.Parse(p.Value))
-        );
+        Console.WriteLine(@$"Part 1: {
+            schematicPartNumbers
+                .Where(p => p.HasSymbolNeighbor)
+                .Sum(p => int.Parse(p.Value))
+        }");
     }
 
     private static void Part2(List<Gear> schematicGears)
     {
         // final solution
-        Console.WriteLine(schematicGears
-            .Where(g => g.NeighborParts.Count == 2)
-            .Sum(g => int.Parse(g.NeighborParts[0].Value) * int.Parse(g.NeighborParts[1].Value))
-        );
+        Console.WriteLine(@$"Part 2: {
+            schematicGears
+                .Where(g => g.NeighborParts.Count == 2)
+                .Sum(g => int.Parse(g.NeighborParts[0].Value) * int.Parse(g.NeighborParts[1].Value))
+        }");
     }
 
     private class PartNumber
