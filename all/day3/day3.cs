@@ -20,7 +20,7 @@ public static class day3
     {
         var numRows = schematics.Count;
         var numCols = schematics.First().Length;
-        PartNumber currentSchematicPartNumber = null;
+        PartNumber? currentSchematicPartNumber = null;
         var schematicPartNumbers = new List<PartNumber>();
         var schematicGears = new List<Gear>();
 
@@ -43,7 +43,7 @@ public static class day3
                 }
                 else if (currentSchematicPartNumber != null && (!isPartNumber || col == (numCols - 1)))
                 {
-                    var startCol = currentSchematicPartNumber.StartCoordinate.Col;
+                    var startCol = currentSchematicPartNumber.StartCoordinate?.Col ?? 0;
                     var hasSymbolNeighbor = false;
                     Enumerable.Range(startCol, currentSchematicPartNumber.Value.Length).ToList().ForEach(c => {
                         hasSymbolNeighbor |= (schematics.NeighborsOf(new Coordinate(row, c)).Where(s => s.IsSymbol()).Count() > 0);
@@ -63,7 +63,7 @@ public static class day3
         }
 
         schematicGears.ForEach(g => {
-            g.NeighborParts = schematicPartNumbers.Where(p => p.AllCoordinates.Intersect(g.Position.NeighborCoordinates(new Size(numRows, numCols))).Count() > 0).ToList();
+            g.NeighborParts = schematicPartNumbers.Where(p => p.AllCoordinates.Intersect(g.Position?.NeighborCoordinates(new Size(numRows, numCols)) ?? new List<Coordinate>()).Count() > 0).ToList();
         });
         
         return (schematicPartNumbers, schematicGears);
@@ -93,15 +93,15 @@ public static class day3
     private class PartNumber
     {
         public string Value { get; set; } = "";
-        public Coordinate StartCoordinate { get; set; } = null;
-        public Coordinate EndCoordinate { get; set; } = null;
+        public Coordinate? StartCoordinate { get; set; } = null;
+        public Coordinate? EndCoordinate { get; set; } = null;
         public IEnumerable<Coordinate> AllCoordinates 
         {
             get
             {
                 return Enumerable
-                    .Range(StartCoordinate.Col, Value.Length)
-                    .Select(c => new Coordinate(StartCoordinate.Row, c));
+                    .Range(StartCoordinate?.Col ?? 0, Value.Length)
+                    .Select(c => new Coordinate(StartCoordinate?.Row ?? 0, c));
             }
         } 
         public bool HasSymbolNeighbor { get; set; } = false;
@@ -109,7 +109,7 @@ public static class day3
 
     private class Gear
     {
-        public Coordinate Position { get; set; } = null;
+        public Coordinate? Position { get; set; } = null;
         public List<PartNumber> NeighborParts { get; set; } = new List<PartNumber>();
     }
 }

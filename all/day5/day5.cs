@@ -19,7 +19,7 @@ public static class day5
     {
         var seedData = mappingData.First();
         var almanac = new List<MappingType>();
-        MappingType mappingType = null;
+        MappingType? mappingType = null;
 
         for(var i = 2; i < mappingData.Count; i++)
         {
